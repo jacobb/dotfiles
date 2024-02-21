@@ -1,0 +1,54 @@
+syntax on
+filetype plugin indent on
+set title
+
+let mapleader = " "
+let maplocalleader = " "
+
+" Vertical and horizontal split then hop to a new buffer
+set splitbelow
+set splitright
+noremap <Leader>v :vsp<cr>
+noremap <Leader>h :sp<cr>
+nnoremap <leader><leader> <c-^>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+"---- Indent Settings ----
+set autoindent
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set hidden  " Allow hidden buffers, don't limit to 1 file per window
+set showcmd
+
+" don't bother with sw[o] files
+set noswapfile
+set nobackup
+set nowritebackup
+
+" some basic tab complete
+set wildmenu
+set wildmode=longest:full,longest
+
+" pretty
+try
+    colorscheme gruvbox-material
+catch /^Vim\%((\a\+)\)\=:E185/
+    colors desert
+endtry
+
+set background=dark
+set gcr=n:blinkon0  " no blinking cursor
+set noerrorbells
+set number
+set relativenumber
+
+" netrw
+let g:netrw_banner = 0
+let g:netrw_winsize = 25
+nnoremap <Leader>ee :Explore<CR>
+nnoremap <Leader>ntf :Lexplore %:h<CR><CR>
