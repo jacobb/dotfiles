@@ -11,6 +11,7 @@ require('tabbar')
 config.term = "wezterm"
 config.enable_tab_bar = true
 config.use_fancy_tab_bar = false
+config.audible_bell = "Disabled"
 
 -- themeing
 config.color_scheme = 'Gruvbox Material (Gogh)'
