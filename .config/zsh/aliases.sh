@@ -1,6 +1,6 @@
 alias cl='clear'
-alias l='ls -l'
-alias ll='ls -la'
+alias l='ls -l --color'
+alias ll='l -a'
 alias pjson='python -m json.tool'
 alias diepyc='find . -name "*.pyc" -exec rm -rf {} \;'
 alias flushdns='sudo killall -INFO mDNSResponder'
@@ -8,6 +8,7 @@ alias d='docker'
 alias dc='docker-compose'
 alias ssh="TERM=xterm-256color /usr/bin/ssh"
 alias mutt="cd ~; neomutt"
+alias neomutt="neomutt"
 
 alias gr='cd $(git rev-parse --show-toplevel)'
 alias vwd='ink_fzf'
