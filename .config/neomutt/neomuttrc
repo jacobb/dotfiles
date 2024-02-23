@@ -1,0 +1,191 @@
+# General ----------------------------------------
+set folder      = ~/Mail
+set editor      = "nvim"
+unset signature
+
+# Colors ---------------------------------------------
+source ./nightfox.muttrc
+#  source ./solarized.muttrc
+
+# Status Bar -----------------------------------------
+set status_chars  = " *%A"
+set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+
+
+# Account ----------------------------------------
+set realname = "Jacob Burch-Hill"
+set from = "jacob@burch-hill.com"
+set mbox_type   = Maildir
+set nm_default_url = "notmuch:///Users/jacob/Mail"
+set nm_config_file = "~/.config/notmuch/.notmuch-config"
+macro index S "<vfolder-from-query>" "Search mailbox"
+
+ignore *
+unignore from: to: cc: bcc: date: subject:
+unhdr_order *
+hdr_order from: to: cc: bcc: date: subject:
+alternative_order text/plain text/enriched text/html
+auto_view text/html
+set text_flowed
+
+# Etc Options
+set mail_check = 0
+set wait_key = no
+set quit
+set delete
+set help = no
+unset move
+
+set my_user="jacob@burch-hill.com"
+set my_smtp_server="smtp.fastmail.com"
+set smtp_url="smtp://$my_user@$my_smtp_server:587/"
+set ssl_starttls = yes
+set smtp_authenticators="login"
+set ssl_force_tls = yes
+set ssl_starttls=yes
+# always use SSL when connecting to a server
+set ssl_force_tls=yes
+set header_cache=~/.mutt/cache/headers
+set message_cachedir=~/.mutt/cache/messages
+set certificate_file=~/.mutt/certificates
+
+set mark_old = no
+set fcc_attach
+set text_flowed
+# Organize into threads, sorting the threads by sender
+set sort=threads
+set sort_aux=from
+unset pipe_decode
+
+# set smtp_pass = `getpass fastmail.burch-hill`
+set smtp_pass = `op read 'op://Private/abra fastmail/password'`
+
+
+# # Folder names
+set my_inbox="INBOX"
+set my_archive="archive"
+set my_drafts="Drafts"
+set my_sent="Sent"
+set my_spam="Spam"
+set my_trash="Trash"
+set my_receipts="receipts"
+set my_starred="starred"
+
+
+# Spool (inbox)
+set spoolfile = "+$my_inbox"
+# Draft folder
+set postponed = "+$my_drafts"
+# Fastmail auto-saves sent files already
+unset record
+set trash = "=$my_trash"
+
+mailboxes   +$my_inbox \
+            +$my_archive \
+            +$my_sent \
+            +$my_trash \
+            +$my_receipts \
+            +$my_spam \
+            +$my_starred \
+
+
+set sidebar_visible = yes
+set sidebar_width=24
+color sidebar_new color221 color233
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+set mail_check_stats
+
+# navigation aliases
+
+bind index,pager g noop
+bind index,pager \Cs noop
+bind index,pager \Cf noop
+macro index,pager gl "<change-folder>"
+macro index,pager gi "<change-folder>=$my_inbox<enter>" "Go to inbox"
+macro index,pager ga "<change-folder>=$my_archive<enter>" "Go to all mail"
+macro index,pager gd "<change-folder>=$my_drafts<enter>" "Go to drafts"
+macro index,pager gt "<change-folder>=$my_trash<enter>" "Go to trash"
+macro index,pager gs "<change-folder>=$my_starred<enter>" "Go to starred mail"
+macro index,pager gw "<change-folder>=$my_work<enter>" "Go to work mail"
+macro index,pager gr "<change-folder>=$my_receipts<enter>" "Go to receipts"
+
+macro index,pager ge "<change-folder>=$my_sent<Enter>" "Go to sent mail"
+macro index,pager gj "<change-folder>$my_spam_m<enter>" "Go to Spam"
+
+macro index \Cfr "<save-message>+$my_receipts<enter>" "save to receipts""
+macro pager \Cfr "<exit><save-message>+$my_receipts<enter>" "save to receipts"
+
+macro index \Cfs "<save-message>+$my_starred<enter>"
+macro pager \Cfs "<exit><save-message>+$my_starred<enter>"
+
+macro index \Cfw "<save-message>+$my_work<enter>"
+macro pager \Cfw "<exit><save-message>+$my_work<enter>"
+
+bind attach,index,pager \CD next-page
+bind attach,index,pager \CU previous-page
+
+
+# attachments
+bind index,pager <Space>  noop
+set mailcap_path = ~/.config/neomutt/mailcap
+auto_view text/html
+bind attach <return> view-mailcap
+bind index,pager V  noop
+macro index,pager V "<view-attachments><search>html<enter><view-mailcap><exit>"
+macro index,pager  H  "<pipe-message>~/bin/viewhtmlmail.py\n" "View HTML in browser"
+bind attach  <return>  view-mailcap
+macro pager <Space>l "<modify-labels>"
+set include = yes
+
+
+# index
+set index_format="%Z %D %-15.15L %s %g"
+set date_format="%b %d %H:%M"
+set sort = threads                         # like gmail
+set sort_aux = reverse-last-date-received  # like gmail
+set uncollapse_jump                        # don't collapse on an unread message
+set sort_re                                # thread based on regex
+set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+
+bind index gg       first-entry
+bind index G        last-entry
+macro index,pager G '<group-reply>'
+
+bind index R        group-reply
+bind index <tab>    sync-mailbox
+bind index <Space>  collapse-thread
+
+# sync
+macro index I "<shell-escape>syncmail<enter>"   "run mbsync to sync all mail"
+macro index i "<shell-escape>quicksyncmail<enter>" "run mbsync to sync inbox"
+
+# pager
+set pager_format="%4C %Z %[!%b %e at %I:%M %p] %.20n %s%* -- (%P)"
+set pager_index_lines = 10 # number of index lines to show
+set pager_context = 3      # number of context lines to show
+set pager_stop             # don't go to next message automatically
+set menu_scroll            # scroll in menus
+set tilde                  # show tildes like in vim
+unset markers              # no ugly plus signs
+set sleep_time = 0
+
+# Pager Key Bindings
+bind pager k  previous-line
+bind pager j  next-line
+bind pager gg top
+bind pager G  bottom
+
+bind pager R  group-reply
+
+
+# contacts
+set query_command="contacts '%s'"
+bind editor <Tab> complete-query
+bind editor ^T    complete
+
+# archive messages
+macro index y "<save-message>+$my_archive<enter>"
+macro pager y "<exit><save-message>+$my_archive<enter>"
+
+# Open HTML Attachments
+# macro index,pager H <view-attachments>/html<enter><view-mailcap><exit>

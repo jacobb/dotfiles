@@ -1,0 +1,123 @@
+# gruvbox dark (contrast dark):
+
+# bg0    = 234
+# bg1    = 237
+# bg2    = 239
+# bg3    = 241
+# bg4    = 243
+# 
+# gray   = 245
+# 
+# fg0    = 229
+# fg1    = 223
+# fg2    = 250
+# fg3    = 248
+# fg4    = 246
+# 
+# red    = 167
+# green  = 142
+# yellow = 214
+# blue   = 109
+# purple = 175
+# aqua   = 108
+# orange = 208
+
+
+# See http://www.mutt.org/doc/manual/#color
+set color_directcolor
+
+color attachment  color109 #192330
+color bold        color15 #192330
+color error       color1 #192330
+color hdrdefault  color246 #192330
+color indicator   #aeafb0 #212e3f
+color markers     color243 #192330
+color normal      #cdcecf #192330
+color quoted      color250 #192330
+color quoted1     color108 #192330
+color quoted2     color250 #192330
+color quoted3     color108 #192330
+color quoted4     color250 #192330
+color quoted5     color108 #192330
+color search      #192330 color208
+color signature   color108 #192330
+color status      #192330 color250
+color tilde       color243 #192330
+color tree        color3 #192330
+color underline   #cdcecf #192330
+
+color sidebar_divider    color250 #192330
+color sidebar_new        color3 #192330
+
+color index color3 #192330 ~N
+color index color108 #192330 ~O
+color index color109 #192330 ~P
+color index color214 #192330 ~F
+color index color175 #192330 ~Q
+color index color167 #192330 ~=
+color index #192330 #cdcecf ~T
+color index #192330 color167 ~D
+
+color header color214 #192330 "^(To:|From:)"
+color header color3 #192330 "^Subject:"
+color header color108 #192330 "^X-Spam-Status:"
+color header color108 #192330 "^Received:"
+color header color108 #192330 "^Date:"
+
+# Regex magic for URLs and hostnames
+#
+# Attention: BSD's regex has RE_DUP_MAX set to 255.
+#
+# Examples:
+#   http://some-service.example.com
+#   example.com
+#   a.example.com
+#   some-service.example.com
+#   example.com/
+#   example.com/datenschutz
+#   file:///tmp/foo
+#
+# Non-examples:
+#   1.1.1900
+#   14.02.2022/24:00
+#   23.59
+#   w.l.o.g
+#   team.its
+color body color3 #192330 "[a-z]{3,255}://[[:graph:]]*"
+color body color3 #192330 "([-[:alnum:]]+\\.)+([0-9]{1,3}|[-[:alpha:]]+)/[[:graph:]]*"
+color body color3 #192330 "([-[:alnum:]]+\\.){2,255}[-[:alpha:]]{2,10}"
+
+# IPv4 and IPv6 stolen from https://stackoverflow.com/questions/53497/regular-expression-that-matches-valid-ipv6-addresses
+color body color3 #192330 "((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])"
+color body color3 #192330 "(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))"
+
+# Mail addresses and mailto URLs
+color body color208 #192330 "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
+color body color208 #192330 "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
+
+# some simleys and stuff
+color body #192330 color214 "[;:]-*[)>(<lt;|]"
+color body color229 #192330 "\\*[- A-Za-z]+\\*"
+
+color body color214 #192330 "^-.*PGP.*-*"
+color body color3 #192330 "^gpg: Good signature from"
+color body color167 #192330 "^gpg: Can't.*$"
+color body color214 #192330 "^gpg: WARNING:.*$"
+color body color167 #192330 "^gpg: BAD signature from"
+color body color167 #192330 "^gpg: Note: This key has expired!"
+color body color214 #192330 "^gpg: There is no indication that the signature belongs to the owner."
+color body color214 #192330 "^gpg: can't handle these multiple signatures"
+color body color214 #192330 "^gpg: signature verification suppressed"
+color body color214 #192330 "^gpg: invalid node with packet of type"
+
+color body color3 #192330 "^Good signature from:"
+color body color167 #192330 "^.?BAD.? signature from:"
+color body color3 #192330 "^Verification successful"
+color body color167 #192330 "^Verification [^s][^[:space:]]*$"
+
+color compose header            #cdcecf #192330
+color compose security_encrypt  color175 #192330
+color compose security_sign     color109 #192330
+color compose security_both     color3 #192330
+color compose security_none     color208 #192330
+color sidebar_unread     color3 "192330"
