@@ -1,0 +1,30 @@
+[user]
+    name = "Jacob Burch-Hill"
+    email = jacob@burch-hill.com
+[init]
+    defaultBranch = main
+
+[alias]
+    aa = add --all
+    amend = commit --amend
+    ci = commit
+    co = checkout
+    dc = diff --cached
+    di = diff
+    ff = merge --ff-only
+    st = status
+    r = !GIT_NO_PAGER=1 git l -20
+
+    gn = goodness
+    l = "!. ~/bin/.githelpers && pretty_git_log"
+    b = "!. ~/bin/.githelpers && pretty_git_branch"
+    bd = "!. ~/bin/.githelpers && pretty_git_branch --sort=creatordate"
+    bb = "!. ~/bin/.githelpers && fzfbranches"
+    bbr = "!. ~/bin/.githelpers && fzfbranches_all"
+
+    regexadd = "!f() { git diff -U0 \
+                | grepdiff -E $1 --output-matching=hunk \
+                | git apply --cached --unidiff-zero; }; f"
+
+[mergetool]
+	keepBackup = false
