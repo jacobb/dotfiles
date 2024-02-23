@@ -12,9 +12,15 @@ config.term = "wezterm"
 config.enable_tab_bar = true
 config.use_fancy_tab_bar = false
 config.audible_bell = "Disabled"
+config.tab_max_width = 20
 
 -- themeing
-config.color_scheme = 'Gruvbox Material (Gogh)'
+config.color_scheme = 'nightfox'
+config.window_background_opacity = 1
+config.inactive_pane_hsb = {
+  saturation = 0.5,
+  brightness = 0.6,
+}
 config.show_new_tab_button_in_tab_bar = false
 config.colors = {
   tab_bar = {
@@ -33,16 +39,13 @@ config.window_padding = {
 -- font
 config.font_size = 14.0
 config.font = wezterm.font_with_fallback({
-  { family = "JetBrainsMono Nerd Font", scale = 1.05 },
-  { family = "SauceCodePro Nerd Font",  scale = 1.05 },
+  { family = "JetBrainsMono Nerd Font Mono", scale = 1.05 },
+  { family = "GeistMono Nerd Font Mono",     scale = 1.05 },
   "Apple Color Emoji",
 })
 
 -- keymaps
 config.leader = { key = 'Space', mods = 'CTRL', timeout_milliseconds = 1000 }
-
-
-
 
 config.keys = {
   { key = 'l', mods = 'LEADER', action = wezterm.action.ShowLauncher },
@@ -58,8 +61,43 @@ config.keys = {
     mods = 'SUPER',
     action = act.ToggleFullScreen,
   },
-  --[[
-    --]]
+  -- hammerspoon window management
+  {
+    key = 'm',
+    mods = 'CTRL',
+    action = act.ToggleFullScreen,
+  },
+  {
+    key = 'p',
+    mods = 'CTRL|SUPER',
+    action = act.DisableDefaultAssignment,
+  },
+  {
+    key = ']',
+    mods = 'CTRL|SUPER',
+    action = act.DisableDefaultAssignment,
+  },
+  {
+    key = 'l',
+    mods = 'CTRL|SUPER',
+    action = act.DisableDefaultAssignment,
+  },
+  {
+    key = "'",
+    mods = 'CTRL|SUPER',
+    action = act.DisableDefaultAssignment,
+  },
+  {
+    key = ",",
+    mods = 'CTRL|SUPER',
+    action = act.DisableDefaultAssignment,
+  },
+  {
+    key = "/",
+    mods = 'CTRL|SUPER',
+    action = act.DisableDefaultAssignment,
+  },
+  -- splits -- also see smart-splits below
   {
     key = 'd',
     mods = 'SUPER',
@@ -91,11 +129,6 @@ config.keys = {
   {
     key = 'w',
     mods = 'SUPER',
-    action = act.SendString('\x00\x64'),
-  },
-  {
-    key = 'w',
-    mods = 'SUPER',
     action = wezterm.action.CloseCurrentPane { confirm = false },
   },
   {
@@ -112,7 +145,7 @@ config.keys = {
         { Foreground = { AnsiColor = 'Fuchsia' } },
         { Text = 'Enter name for new workspace' },
       },
-      action = wezterm.action_callback(function(window, pane, line)
+      action = wezterm.action_callback(function (window, pane, line)
         -- line will be `nil` if they hit escape without entering anything
         -- An empty string if they just hit enter
         -- Or the actual line of text they wrote
@@ -122,7 +155,7 @@ config.keys = {
               name = line,
             },
             pane
-            )
+          )
         end
       end),
     },
@@ -144,7 +177,7 @@ for i = 1, 8 do
 end
 
 -- event handlers
-wezterm.on('trigger-urlx-with-scrollback', function(window, pane)
+wezterm.on('trigger-urlx-with-scrollback', function (window, pane)
   -- Retrieve the text from the pane
   local text = pane:get_lines_as_text(pane:get_dimensions().scrollback_rows)
 
@@ -174,7 +207,8 @@ wezterm.on('trigger-urlx-with-scrollback', function(window, pane)
 end)
 
 -- smart splits
-local smart_splits = wezterm.plugin.require('https://github.com/mrjones2014/smart-splits.nvim')
+local smart_splits = wezterm.plugin.require(
+'https://github.com/mrjones2014/smart-splits.nvim')
 -- you can put the rest of your Wezterm config here
 smart_splits.apply_to_config(config, {
   -- the default config is here, if you'd like to use the default keys,
@@ -185,8 +219,8 @@ smart_splits.apply_to_config(config, {
   direction_keys = { 'h', 'j', 'k', 'l' },
   -- modifier keys to combine with direction_keys
   modifiers = {
-    move = 'CTRL', -- modifier to use for pane movement, e.g. CTRL+h to move left
-    resize = 'CTRL|SHIFT', -- modifier to use for pane resize, e.g. META+h to resize to the left
+    move = 'CTRL',       -- modifier to use for pane movement, e.g. CTRL+h to move left
+    resize = 'CTRL|ALT', -- modifier to use for pane resize, e.g. META+h to resize to the left
   },
 })
 

@@ -3,9 +3,10 @@ local wezterm = require('wezterm')
 wezterm.on('update-status', function (window, _)
   local ws_name = window:active_workspace()
   local SOLID_RIGHT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
-  local edge_background = '#0b0022'
-  local background = '#3c1361'
+  local edge_background = '#000'
+  local background = '#111A25'
   window:set_left_status(wezterm.format {
+    { Background = { Color = background } },
     { Text = ' 🐧 ' },
     { Background = { Color = background } },
     { Text = ' ' .. ws_name .. ' ' },
@@ -75,13 +76,14 @@ wezterm.on('update-right-status', function (window, pane)
   -- The filled in variant of the < symbol
   local SOLID_LEFT_ARROW = wezterm.nerdfonts.pl_right_hard_divider
 
-  -- Color palette for the backgrounds of each cell
+  -- Color palette for the backgrounds of each cell -- left to right
   local colors = {
-    '#3c1361',
-    '#52307c',
-    '#663a82',
-    '#7c5295',
-    '#b491c8',
+    -- '#8bb1e2',
+    -- '#6e91c1',
+    '#5173a1',
+    '#355682',
+    '#1a3b64',
+    '#012048',
   }
 
   -- Foreground color for the text across the fade

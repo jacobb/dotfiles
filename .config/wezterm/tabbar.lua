@@ -8,23 +8,26 @@ local function tab_title(tab_info)
   end
   -- Otherwise, use the title from the active pane
   -- in that tab
-  return tab_info.active_pane.title
+  local pane_title = tab_info.active_pane.title
+  local cleaned_title = pane_title:match("^(.-) %(")
+  return cleaned_title or pane_title
 end
 
 -- The filled in variant of the > symbol
 local SOLID_RIGHT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
-local RIGHT_ARROW = wezterm.nerdfonts.pl_left_soft_divider
 
 wezterm.on(
   'format-tab-title',
-  function(tab, tabs, panes, config, hover, max_width)
+  function (tab, tabs, panes, config, hover, max_width)
     local edge_background = '#0b0022'
-    local background = '#1b1032'
-    local foreground = '#808080'
+    local background = '#2a425b'
+    local foreground = '#aeafb0'
+    local attribute = { Attribute = { Intensity = "Normal" } }
 
     if tab.is_active then
-      background = '#123ace'
-      foreground = '#c0c0c0'
+      background = '#649ddb'
+      foreground = '#192330'
+      attribute = { Attribute = { Italic = true } }
     elseif hover then
       background = '#3b3052'
       foreground = '#909090'
@@ -44,6 +47,7 @@ wezterm.on(
       { Text = SOLID_RIGHT_ARROW },
       { Background = { Color = background } },
       { Foreground = { Color = foreground } },
+      attribute,
       { Text = title },
       { Background = { Color = edge_background } },
       { Foreground = { Color = edge_foreground } },
