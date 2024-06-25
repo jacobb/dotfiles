@@ -75,21 +75,64 @@ lspconfig.lua_ls.setup {
 
 }
 --python
+--lspconfig.ruff.setup({})
+lspconfig.ruff_lsp.setup({})
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.publishDiagnostics.tagSupport.valueSet = { 2 }
 
 lspconfig.pyright.setup({
   capabilities = capabilities,
 })
-lspconfig.ruff_lsp.setup({})
 
 -- js/ts
-lspconfig.tsserver.setup({})
+-- lspconfig.tsserver.setup({})
+lspconfig.biome.setup {
+  filestypes = {
+    "javascript",
+    "javascriptreact",
+    "json",
+    "jsonc",
+    "typescript",
+    "typescript.tsx",
+    "typescriptreact",
+  }
+}
+
+lspconfig.html.setup {
+  filetypes = {
+    "html",
+    "htmldjango",
+    "jinja",
+  }
+}
+lspconfig.cssls.setup({
+  settings = {
+    css = {
+      validate = true,
+      lint = {
+        unknownAtRules = "ignore"
+      }
+    },
+    scss = {
+      validate = true,
+      lint = {
+        unknownAtRules = "ignore"
+      }
+    },
+    less = {
+      validate = true,
+      lint = {
+        unknownAtRules = "ignore"
+      }
+    },
+  },
+})
 
 -- rust
 
-local on_attach = function(client, _)
-    client.server_capabilities.semanticTokensProvider = nil
+local on_attach = function (client, _)
+  client.server_capabilities.semanticTokensProvider = nil
 end
 
 require('lspconfig').rust_analyzer.setup {
@@ -97,7 +140,7 @@ require('lspconfig').rust_analyzer.setup {
   settings = {
     ['rust-analyzer'] = {
       cachePriming = {
-        enable = false
+        -- enable = false
       },
       checkOnSave = {
         allFeatures = true,
@@ -109,3 +152,18 @@ require('lspconfig').rust_analyzer.setup {
     }
   }
 }
+
+-- markdown
+local mdCapabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol
+.make_client_capabilities())
+
+-- Ensure that dynamicRegistration is enabled! This allows the LS to take into account actions like the
+-- Create Unresolved File code action, resolving completions for unindexed code blocks, ...
+mdCapabilities.workspace = {
+  didChangeWatchedFiles = {
+    dynamicRegistration = true,
+  },
+}
+require("lspconfig").markdown_oxide.setup({
+  capabilities = capabilities,
+})

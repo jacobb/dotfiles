@@ -1,4 +1,5 @@
 return {
+  --[[
   {
     "epwalsh/obsidian.nvim",
     version = "*",     -- recommended, use latest release instead of latest commit
@@ -42,6 +43,7 @@ return {
       },
     },
   },
+  --]]
   {
     "preservim/vim-markdown",
     init = function ()
@@ -61,5 +63,5 @@ return {
       vim.g['pencil#wrapModeDefault'] = "soft"
     end,
     ft = { "markdown", "text", "email" }
-  }
+  },
 }

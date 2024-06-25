@@ -57,7 +57,7 @@ function diagnostics_message:init(options)
   )
 end
 
-function diagnostics_message:update_status(is_focused)
+function diagnostics_message:update_status()
   local r, _ = unpack(vim.api.nvim_win_get_cursor(0))
   local diagnostics = vim.diagnostic.get(0, { lnum = r - 1 })
   if #diagnostics > 0 then
@@ -71,27 +71,11 @@ function diagnostics_message:update_status(is_focused)
     local hl = { self.highlights.error, self.highlights.warn, self.highlights.info, self
       .highlights.hint }
     return highlight.component_format_highlight(hl[diag.severity]) ..
-    icons[diag.severity] .. " " .. diag.message
+      icons[diag.severity] .. " " .. diag.message
   else
     return ""
   end
 end
-
-require("lualine").setup({
-  sections = {
-    lualine_c = {
-      {
-        diagnostics_message,
-        colors = {
-          error = "#BF616A",
-          warn = "#EBCB8B",
-          info = "#A3BE8C",
-          hint = "#88C0D0",
-        },
-      },
-    },
-  },
-})
 
 require('lualine').setup {
   options = {
@@ -115,7 +99,7 @@ require('lualine').setup {
   sections = {
     lualine_a = { 'mode' },
     lualine_b = { 'branch', 'diff', 'diagnostics' },
-    lualine_c = { 'filename', diagnostics_message },
+    lualine_c = { { 'filename', path = 1 }, diagnostics_message },
     lualine_x = { 'filetype' },
     lualine_y = { 'progress' },
     lualine_z = { 'location' }
