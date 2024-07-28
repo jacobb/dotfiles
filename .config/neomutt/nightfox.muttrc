@@ -28,11 +28,11 @@ set color_directcolor
 
 color attachment  color109 #192330
 color bold        color15 #192330
-color error       color1 #192330
+color error       #ab435d #192330
 color hdrdefault  color246 #192330
-color indicator   #aeafb0 #212e3f
+color indicator   #131a24 #6085b6
 color markers     color243 #192330
-color normal      #cdcecf #192330
+color normal      #cdcecf #131a24
 color quoted      color250 #192330
 color quoted1     color108 #192330
 color quoted2     color250 #192330
@@ -49,14 +49,14 @@ color underline   #cdcecf #192330
 color sidebar_divider    color250 #192330
 color sidebar_new        color3 #192330
 
-color index color3 #192330 ~N
+color index #baa363 #131a24 ~N
 color index color108 #192330 ~O
 color index color109 #192330 ~P
 color index color214 #192330 ~F
 color index color175 #192330 ~Q
 color index color167 #192330 ~=
-color index #192330 #cdcecf ~T
-color index #192330 color167 ~D
+color index #192330 #cf8a52 ~T
+color index #192330 #ab435d ~D
 
 color header color214 #192330 "^(To:|From:)"
 color header color3 #192330 "^Subject:"
@@ -120,4 +120,4 @@ color compose security_encrypt  color175 #192330
 color compose security_sign     color109 #192330
 color compose security_both     color3 #192330
 color compose security_none     color208 #192330
-color sidebar_unread     color3 "192330"
+color sidebar_unread     color3 #192330

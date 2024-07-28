@@ -164,6 +164,7 @@ mdCapabilities.workspace = {
     dynamicRegistration = true,
   },
 }
-require("lspconfig").markdown_oxide.setup({
-  capabilities = capabilities,
-})
+
+-- require("lspconfig").markdown_oxide.setup({
+--   capabilities = capabilities,
+-- })

@@ -7,15 +7,24 @@ end
 
 local function move_current_window(x, y, w, h, duration)
   local win = hs.window.focusedWindow()
+  local axApp = hs.axuielement.applicationElement(win:application())
+  local wasEnhanced = axApp.AXEnhancedUserInterface
+
   local screen_rect = win:screen():frame()
 
   local win_x = apply_screen_math(x, screen_rect.w)
   local win_y = apply_screen_math(y, screen_rect.h)
   local win_w = apply_screen_math(w, screen_rect.w)
   local win_h = apply_screen_math(h, screen_rect.h)
-  local frame = hs.geometry.new(win_x, win_y + screen_rect.y, win_w, win_h)
+  local frame = hs.geometry.new(screen_rect.x + win_x, win_y + screen_rect.y, win_w, win_h)
 
+  if wasEnhanced then
+    axApp.AXEnhancedUserInterface = false
+  end
   win:setFrame(frame, duration)
+  if wasEnhanced then
+    axApp.AXEnhancedUserInterface = true
+  end
 end
 
 hs.hotkey.bind({ "cmd", "ctrl" }, "P", function()

@@ -1,6 +1,17 @@
 local wezterm = require 'wezterm'
 local mux = wezterm.mux
 
+--[[
+config.unix_domains = {
+  { name = "unix" }
+}
+config.mux_env_remove = {
+  -- 'SSH_AUTH_SOCK',
+  -- 'SSH_CLIENT',
+  -- 'SSH_CONNECTION',
+}
+]]--
+
 -- Decide whether cmd represents a default startup invocation
 function is_default_startup(cmd)
   if not cmd then

@@ -1,9 +1,26 @@
 return {
-  "junegunn/fzf",
-  "junegunn/fzf.vim",
+  {
+    "ibhagwan/fzf-lua",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
   "tpope/vim-unimpaired",
   "tpope/vim-vinegar",
   { "nvim-treesitter/nvim-treesitter", tag = 'v0.9.2' },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    tag = 'v0.9.2',
+    config = function ()
+      local configs = require("nvim-treesitter.configs")
+
+      configs.setup({
+        ensure_installed = { "rust", "lua", "vim", "vimdoc", "query", "python", "htmldjango", "javascript", "html" },
+        sync_install = false,
+        highlight = { enable = true },
+        indent = { enable = true },
+      })
+    end
+  },
   -- "neovim/nvim-lspconfig",
   { dir = "~/src/nvim-lspconfig" },
   -- "dhruvmanila/nvim-lspconfig",

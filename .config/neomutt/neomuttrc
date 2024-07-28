@@ -27,6 +27,8 @@ hdr_order from: to: cc: bcc: date: subject:
 alternative_order text/plain text/enriched text/html
 auto_view text/html
 set text_flowed
+set ts_enabled
+set ts_status_format='%D'
 
 # Etc Options
 set mail_check = 0
@@ -91,7 +93,6 @@ mailboxes   +$my_inbox \
 
 set sidebar_visible = yes
 set sidebar_width=24
-color sidebar_new color221 color233
 set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
 set mail_check_stats
 
@@ -110,7 +111,7 @@ macro index,pager gw "<change-folder>=$my_work<enter>" "Go to work mail"
 macro index,pager gr "<change-folder>=$my_receipts<enter>" "Go to receipts"
 
 macro index,pager ge "<change-folder>=$my_sent<Enter>" "Go to sent mail"
-macro index,pager gj "<change-folder>$my_spam_m<enter>" "Go to Spam"
+macro index,pager gj "<change-folder>=$my_spam<enter>" "Go to Spam"
 
 macro index \Cfr "<save-message>+$my_receipts<enter>" "save to receipts""
 macro pager \Cfr "<exit><save-message>+$my_receipts<enter>" "save to receipts"

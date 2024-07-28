@@ -45,8 +45,9 @@ vim.opt.splitbelow = true
 vim.opt.swapfile = false
 
 -- fzf
-vim.keymap.set("n", "<Leader>f", ":Files .<cr>")
-vim.keymap.set("n", "<Leader>r", ":Rg .<cr>")
+local fzf = require("fzf-lua")
+vim.keymap.set("n", "<Leader>f", fzf.files)
+vim.keymap.set("n", "<Leader>r", fzf.grep)
 
 -- go to last buffer
 vim.keymap.set("n", "<Leader><Leader>", "<C-^>")

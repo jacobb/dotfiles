@@ -21,6 +21,7 @@ config.inactive_pane_hsb = {
   saturation = 0.5,
   brightness = 0.6,
 }
+config.command_palette_rows = 10
 config.show_new_tab_button_in_tab_bar = false
 config.colors = {
   tab_bar = {
@@ -38,6 +39,7 @@ config.window_padding = {
 
 -- font
 config.font_size = 14.0
+config.command_palette_font_size = 24.0
 config.font = wezterm.font_with_fallback({
   { family = "JetBrainsMono Nerd Font Mono", scale = 1.05 },
   { family = "GeistMono Nerd Font Mono",     scale = 1.05 },
@@ -208,7 +210,7 @@ end)
 
 -- smart splits
 local smart_splits = wezterm.plugin.require(
-'https://github.com/mrjones2014/smart-splits.nvim')
+  'https://github.com/mrjones2014/smart-splits.nvim')
 -- you can put the rest of your Wezterm config here
 smart_splits.apply_to_config(config, {
   -- the default config is here, if you'd like to use the default keys,
@@ -224,15 +226,27 @@ smart_splits.apply_to_config(config, {
   },
 })
 
--- setup local unix-based mux terminal
-require('local_mux')
-config.unix_domains = {
-  { name = "unix" }
-}
-config.mux_env_remove = {
-  -- 'SSH_AUTH_SOCK',
-  -- 'SSH_CLIENT',
-  -- 'SSH_CONNECTION',
-}
+wezterm.on('user-var-changed', function (window, pane, name, value)
+  local overrides = window:get_config_overrides() or {}
+  if name == "ZEN_MODE" then
+    local incremental = value:find("+")
+    local number_value = tonumber(value)
+    if incremental ~= nil then
+      while (number_value > 0) do
+        window:perform_action(wezterm.action.IncreaseFontSize, pane)
+        number_value = number_value - 1
+      end
+      overrides.enable_tab_bar = false
+    elseif number_value < 0 then
+      window:perform_action(wezterm.action.ResetFontSize, pane)
+      overrides.font_size = nil
+      overrides.enable_tab_bar = true
+    else
+      overrides.font_size = number_value
+      overrides.enable_tab_bar = false
+    end
+  end
+  window:set_config_overrides(overrides)
+end)
 
 return config
