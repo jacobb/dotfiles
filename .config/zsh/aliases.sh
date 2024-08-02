@@ -12,10 +12,11 @@ alias mutt="cd ~; neomutt"
 
 alias gr='cd $(git rev-parse --show-toplevel)'
 alias vwd='ink_fzf'
-
 alias cat='bat'
+
 alias j='just'
 alias g='git'
+alias y='yazi'
 
 # one day i'll pick
 alias vi='nvim'
