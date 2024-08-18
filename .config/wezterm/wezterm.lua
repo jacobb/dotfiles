@@ -14,9 +14,12 @@ config.use_fancy_tab_bar = false
 config.audible_bell = "Disabled"
 config.tab_max_width = 20
 
+config.window_decorations = "RESIZE"
+config.window_background_opacity = 0.97
+config.macos_window_background_blur = 10
+
 -- themeing
 config.color_scheme = 'nightfox'
-config.window_background_opacity = 1
 config.inactive_pane_hsb = {
   saturation = 0.5,
   brightness = 0.6,
