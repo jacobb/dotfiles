@@ -8,7 +8,7 @@ require("lazy").setup("plugins")
 require('nightfox').setup({
   options = {
     dim_inactive = true,
-    transparent = false,
+    transparent = true,
   },
   groups = {
     all = {
