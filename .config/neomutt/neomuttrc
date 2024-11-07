@@ -175,6 +175,7 @@ bind pager k  previous-line
 bind pager j  next-line
 bind pager gg top
 bind pager G  bottom
+macro index,pager gc "<pipe-message>uv run /Users/jacob/bin/parse_from.py\n" "Create contact from from email"
 
 bind pager R  group-reply
 
