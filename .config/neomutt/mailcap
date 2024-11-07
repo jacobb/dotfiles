@@ -7,6 +7,7 @@ text/html; w3m -I %{charset} -T text/html; copiousoutput;
 
 text/calendar; open -a "/Applications/Fantastical.app" %s
 application/calendar; open -a "/Applications/Fantastical.app" %s
+application/ics; open -a "/Applications/Fantastical.app" %s
 
 # MS Word documents
 application/msword; ~/.mutt/view_attachment.sh %s "-" '/Applications/Pages.app'
