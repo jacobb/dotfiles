@@ -133,7 +133,7 @@ auto_view text/html
 bind attach <return> view-mailcap
 bind index,pager V  noop
 macro index,pager V "<view-attachments><search>html<enter><view-mailcap><exit>"
-macro index,pager  H  "<pipe-message>~/bin/viewhtmlmail.py\n" "View HTML in browser"
+macro index,pager  H  "<pipe-message>viewhtmlmail\n" "View HTML in browser"
 bind attach  <return>  view-mailcap
 macro pager <Space>l "<modify-labels>"
 set include = yes
