@@ -2,21 +2,20 @@ vim.g.cmp_enabled = true
 
 return {
   {
-    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/nvim-cmp',
+    event = "InsertEnter", -- Lazy load on insert
     dependencies = {
+      'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
-      'hrsh7th/nvim-cmp',
       'hrsh7th/cmp-buffer',
-
-      'l3mon4d3/luasnip',
       { dir = "/users/jacob/src/ink-nvim", name = "ink-nvim" },
     },
-    config = function ()
+    opts = function ()
       local cmp = require("cmp")
       local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
 
-      cmp.setup({
+      local options = {
         enabled = function ()
           return vim.g.cmp_enabled
         end,
@@ -25,36 +24,92 @@ return {
           throttle = 30,
           fetching_timeout = 500,
         },
+        formatting = {
+          fields = { "abbr", "kind", "menu" },
+          format = function (entry, vim_item)
+            vim_item.menu = ({
+              nvim_lsp = "LSP",
+              buffer = "Buffer",
+              path = "Path",
+              ink = "Ink",
+            })[entry.source.name]
+            return vim_item
+          end,
+        },
         mapping = {
           ["<c-p>"] = cmp.mapping.select_prev_item(cmp_select_opts),
           ["<c-n>"] = cmp.mapping.select_next_item(cmp_select_opts),
-          ["<c-;>"] = cmp.mapping.complete(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }),
-          ["<c-e>"] = cmp.mapping.abort(),
-          ["<c-u>"] = cmp.mapping.scroll_docs(-4),
-          ["<c-d>"] = cmp.mapping.scroll_docs(4),
+          ["<Tab>"] = cmp.mapping(function (fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+          ["<CR>"] = cmp.mapping(function (fallback)
+            if cmp.visible() and cmp.get_active_entry() then
+              cmp.confirm({ select = false })
+            else
+              fallback()
+            end
+          end
+          , { "i" }),
+          ["<Esc>"] = cmp.mapping({
+            i = function (fallback)
+              if cmp.visible() then
+                cmp.abort()
+              else
+                fallback()
+              end
+            end
+          }),
         },
         completion = {
-          completeopt = "menu,menuone,noinsert",
+          completeopt = "menu,menuone,noselect",
           autocomplete = {
             cmp.TriggerEvent.TextChanged,
-            cmp.TriggerEvent.InsertEnter,
           },
-          keyword_length = 3,
+          keyword_length = 2,
         },
         experimental = {
           ghost_text = true,
         },
         sources = cmp.config.sources({
-          { name = "nvim_lsp", max_item_count = 5 },
-          { name = "buffer",   keyword_length = false, max_item_count = 5 },
-          { name = "path" },
+          {
+            name = "nvim_lsp",
+            max_item_count = 5,
+            priority = 1000,
+            keyword_length = 2,
+            entry_filter = function (_)
+              -- Skip LSP completion when inside strings or comments
+              local context = require('cmp.config.context')
+              return not context.in_treesitter_capture('string') and
+                not context.in_treesitter_capture('comment')
+            end
+          },
+          {
+            name = "buffer",
+            max_item_count = 5,
+            priority = 500,
+            keyword_length = 3, -- buffer completion needs more chars to be useful
+          },
+          {
+            name = "path",
+            priority = 250,
+            keyword_length = 3,
+            option = {
+              trailing_slash = true, -- add trailing slash after directory names
+            }
+          },
           {
             name = 'ink',
             keyword_length = 2,
+            priority = 750, -- high priority but below LSP
           },
-        }),
-      })
+        })
+
+      }
+      return options
     end
   }
 }
