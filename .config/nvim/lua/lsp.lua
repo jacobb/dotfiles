@@ -59,7 +59,8 @@ lspconfig.lua_ls.setup {
   settings = {
     Lua = {
       diagnostics = {
-        globals = { 'vim', 'hs' }
+        globals = { 'vim', 'hs' },
+        disable = { "deprecated" }
       },
       format = {
         enable = true,
@@ -72,12 +73,11 @@ lspconfig.lua_ls.setup {
       },
     }
   }
-
 }
 --python
---lspconfig.ruff.setup({})
-lspconfig.ruff_lsp.setup({})
+require('lspconfig').ruff.setup{}
 
+-- pyright
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.publishDiagnostics.tagSupport.valueSet = { 2 }
 
@@ -135,7 +135,7 @@ local on_attach = function (client, _)
   client.server_capabilities.semanticTokensProvider = nil
 end
 
-require('lspconfig').rust_analyzer.setup {
+lspconfig.rust_analyzer.setup {
   on_attach = on_attach,
   settings = {
     ['rust-analyzer'] = {
@@ -152,19 +152,3 @@ require('lspconfig').rust_analyzer.setup {
     }
   }
 }
-
--- markdown
-local mdCapabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol
-.make_client_capabilities())
-
--- Ensure that dynamicRegistration is enabled! This allows the LS to take into account actions like the
--- Create Unresolved File code action, resolving completions for unindexed code blocks, ...
-mdCapabilities.workspace = {
-  didChangeWatchedFiles = {
-    dynamicRegistration = true,
-  },
-}
-
--- require("lspconfig").markdown_oxide.setup({
---   capabilities = capabilities,
--- })

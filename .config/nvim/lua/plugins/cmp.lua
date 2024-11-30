@@ -1,5 +1,3 @@
--- ... rest of your mappings
---
 vim.g.cmp_enabled = true
 
 return {
