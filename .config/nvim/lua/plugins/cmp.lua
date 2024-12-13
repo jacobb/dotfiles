@@ -54,13 +54,12 @@ return {
             end
           end
           , { "i" }),
-          ["<Esc>"] = cmp.mapping({
+          ["<c-g>"] = cmp.mapping({
             i = function (fallback)
-              if cmp.visible() then
-                cmp.abort()
-              else
+              if not cmp.visible() then
                 fallback()
               end
+              cmp.abort()
             end
           }),
         },

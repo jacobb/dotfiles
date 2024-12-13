@@ -7,8 +7,8 @@ return {
       return {
         { "<Leader>f", fzf.files },
         { "<Leader>r", fzf.grep },
-        { "<Leader>R", fzf.grep_cword},
-        { "<Leader>j", fzf.jumps},
+        { "<Leader>R", fzf.grep_cword },
+        { "<Leader>j", fzf.jumps },
       }
     end
   },
@@ -16,14 +16,13 @@ return {
   {
     'stevearc/oil.nvim',
     opts = {
-      -- Show hidden files by default
       default_file_explorer = true,
       view_options = {
         show_hidden = true,
       },
     },
-    -- Optional: load the plugin when you use a directory command
     event = "VeryLazy",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
       { "-", "<CMD>Oil<CR>", desc = "Open parent directory" },
     },
@@ -35,10 +34,16 @@ return {
       local configs = require("nvim-treesitter.configs")
 
       configs.setup({
-        ensure_installed = { "rust", "lua", "vim", "vimdoc", "query", "python", "htmldjango", "javascript", "html" },
+        ensure_installed = { "rust", "lua", "vim", "vimdoc", "query", "python", "htmldjango", "javascript", "html", "yaml", "toml"},
         sync_install = false,
-        highlight = { enable = true },
-        indent = { enable = true },
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
+        indent = { enable = true , disable = {"python"}},
+        autopairs = {
+          enable = true,
+        },
         incremental_selection = {
           enable = true,
           keymaps = {
