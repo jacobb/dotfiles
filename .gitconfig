@@ -6,9 +6,11 @@
 
 [alias]
     aa = add --all
+    ap = aa -p
     amend = commit --amend
     ci = commit
     co = checkout
+    cp = cherry-pick
     dc = diff --cached
     di = diff
     ff = merge --ff-only
