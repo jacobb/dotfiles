@@ -25,6 +25,25 @@ vim.keymap.set("n", "<Leader><Enter>", "<C-]>")
 vim.keymap.set("n", "gz", ":ZenMode<cr>")
 
 local noremap_silent = { noremap = true, silent = true }
+
+-- location and quickfix helpers
+--
+-- Helper function that works for both location and quickfix lists
+local function goto_next_item(use_location_list)
+    local list = use_location_list and vim.fn.getloclist(0) or vim.fn.getqflist()
+    if #list == 1 then
+        -- If only one item, jump directly to it
+        if use_location_list then
+            vim.cmd('ll 1')
+        else
+            vim.cmd('cc 1')
+        end
+        return
+    end
+    -- Otherwise use the standard vim-unimpaired mapping
+    vim.cmd(use_location_list and 'normal! ]l' or 'normal! ]q')
+end
+
 vim.keymap.set('n', '=l', function ()
   local win = vim.api.nvim_get_current_win()
   local items = vim.fn.getloclist(win)
@@ -42,23 +61,5 @@ vim.keymap.set('n', '=q', function ()
   vim.cmd('botright ' .. action)
 end, noremap_silent)
 
-
--- Helper function that works for both location and quickfix lists
-local function goto_next_item(use_location_list)
-    local list = use_location_list and vim.fn.getloclist(0) or vim.fn.getqflist()
-    if #list == 1 then
-        -- If only one item, jump directly to it
-        if use_location_list then
-            vim.cmd('ll 1')
-        else
-            vim.cmd('cc 1')
-        end
-        return
-    end
-    -- Otherwise use the standard vim-unimpaired mapping
-    vim.cmd(use_location_list and 'normal! ]l' or 'normal! ]q')
-end
-
--- Override the mappings
 vim.keymap.set('n', ']l', function() goto_next_item(true) end, { noremap = true, silent = true })
 vim.keymap.set('n', ']q', function() goto_next_item(false) end, { noremap = true, silent = true })
