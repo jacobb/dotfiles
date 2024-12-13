@@ -5,8 +5,8 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/Users/jacob/bin:$PATH"
+export PATH="/Users/jacob/.local/bin:$PATH"
 export PATH="/Users/jacob/.cargo/bin:$PATH"
-source "$HOME/.rye/env"
 
 bindkey -e
 bindkey "^?" backward-delete-char
@@ -20,6 +20,7 @@ alias gc='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
 source $XDG_CONFIG_HOME/zsh/prompt.sh
 source $XDG_CONFIG_HOME/zsh/aliases.sh
+source $XDG_CONFIG_HOME/zsh/envs.sh
 export FZF_DEFAULT_COMMAND='fd --type f --hidden'
 
 eval "$(atuin init zsh --disable-up-arrow)"
