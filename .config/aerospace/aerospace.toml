@@ -56,11 +56,11 @@ on-focus-changed = "move-mouse window-lazy-center"
 #                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
 #                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-inner.horizontal = 5
-inner.vertical =   5
+inner.horizontal = 0
+inner.vertical =   3
 outer.left =       0
 outer.bottom =     0
-outer.top =        5
+outer.top =        0
 outer.right =      0
 
 # 'main' binding mode declaration
@@ -105,22 +105,20 @@ alt-shift-l = 'move right'
 
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-alt-1 = 'workspace 1'
-alt-2 = 'workspace 2'
-alt-3 = 'workspace 3'
 alt-b = 'workspace B'  # browser
 alt-c = 'workspace C'  # chat (slack/discord/messages)
+alt-e = 'workspace E'  # email
 alt-m = 'workspace M'  # music
+alt-r = 'workspace R'  # random
 alt-t = 'workspace T'  # terminal
 alt-v = 'workspace V'  # video
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-alt-shift-1 = 'move-node-to-workspace 1'
-alt-shift-2 = 'move-node-to-workspace 2'
-alt-shift-3 = 'move-node-to-workspace 3'
 alt-shift-b = 'move-node-to-workspace B'
 alt-shift-c = 'move-node-to-workspace C'
+alt-shift-e = 'move-node-to-workspace E'
 alt-shift-m = 'move-node-to-workspace M'
+alt-shift-r = 'move-node-to-workspace R'
 alt-shift-t = 'move-node-to-workspace T'
 alt-shift-v = 'move-node-to-workspace V'
 
@@ -134,7 +132,7 @@ alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
 alt-shift-semicolon = 'mode service'
 
-alt-shift-r = 'mode resize'
+alt-shift-w = 'mode resize'
 
 [mode.resize.binding]
 h = 'resize width -50'
@@ -176,3 +174,24 @@ run = "move-node-to-workspace B"
 [[on-window-detected]]
 if.app-id = 'com.swinsian.Swinsian'
 run = "move-node-to-workspace M"
+
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run = "move-node-to-workspace C"
+
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = "move-node-to-workspace C"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Safari.WebApp.387026FE-E9BA-43EC-90E1-06B90623EE27'
+run = "move-node-to-workspace E"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Safari.WebApp.1AA613C4-DE42-4B0C-8751-148B7A9CDB94'
+run = "move-node-to-workspace M"
+
+
+[[on-window-detected]]
+if.app-id = 'com.apple.MobileSMS'
+run = "move-node-to-workspace C"
