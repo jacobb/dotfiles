@@ -3,22 +3,28 @@ return {
   {
     "folke/zen-mode.nvim",
     ft = { "markdown", "mail", "text" },
-    opts = {
-      window = {
-        width = 100,
-      },
-      plugins = {
-        options = {
-          ruler = true,
-          laststatus = 0,
-          showcmd = true,
+    opts = function ()
+      vim.api.nvim_create_augroup('ZenModeFix', { clear = true })
+      vim.api.nvim_create_autocmd({ 'VimLeavePre' }, {
+        group = 'ZenModeFix',
+        callback = function () require('zen-mode').close() end,
+      })
+      local opts = {
+        window = {
+          width = 100,
         },
-        wezterm = {
-          enabled = true,
-          -- can be either an absolute font size or the number of incremental steps
-          font = "+4", -- (10% increase per step)
-        },
+        plugins = {
+          options = {
+            ruler = true,
+            laststatus = 0,
+          },
+          wezterm = {
+            enabled = true,
+            font = "18",
+          },
+        }
       }
-    }
+      return opts
+    end
   }
 }

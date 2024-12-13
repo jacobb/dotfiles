@@ -70,15 +70,18 @@ return {
       },
       groups = {
         all = {
-          htmlH2 = { fg = "palette.magenta.bright" },
           htmlH3 = { fg = "palette.orange.bright" },
           htmlH4 = { fg = "palette.green.bright" },
           ["@markup.heading.1.markdown"] = { fg = "palette.green.bright" },
-          ["@text.title.1"] = { fg = "palette.red.bright" },
-          ["@text.title.2"] = { fg = "palette.blue.bright" },
-          ["@text.title.3"] = { fg = "palette.cyan.bright" },
-          ["@text.title.4"] = { fg = "palette.orange.bright" },
+          ["@markup.heading.2"] = { fg = "palette.red.bright" },
+          ["@markup.heading.3"] = { fg = "palette.magenta.bright" },
+          ["@markup.heading.4"] = { fg = "palette.cyan.bright" },
+          ["@markup.heading.5"] = { fg = "palette.orange.bright" },
           ["@text.title.5"] = { fg = "palette.pink.bright" },
+          ["@markup.link"] = { fg = "palette.blue.bright"},
+          ["@markup.link.label"] = { fg = "palette.blue.bright", style = "underline"},
+          ["@markup.link.url.markdown_inline"] = { fg = "palette.orange.bright", style = "italic" },
+
         }
       }
     },
