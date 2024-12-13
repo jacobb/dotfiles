@@ -1,11 +1,15 @@
 local wezterm = require('wezterm')
 local config = {}
+
 local act = wezterm.action
 
 -- look of status portion of tab bar
 require('status')
 -- look of tabs themselves
 require('tabbar')
+-- multiplexing
+require('local_mux')
+
 
 -- core config
 config.term = "wezterm"
@@ -25,6 +29,7 @@ config.inactive_pane_hsb = {
   brightness = 0.6,
 }
 config.command_palette_rows = 10
+config.exit_behavior = "CloseOnCleanExit"
 config.show_new_tab_button_in_tab_bar = false
 config.colors = {
   tab_bar = {
