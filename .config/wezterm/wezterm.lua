@@ -60,10 +60,13 @@ config.leader = { key = 'Space', mods = 'CTRL', timeout_milliseconds = 1000 }
 config.keys = {
   { key = 'l', mods = 'LEADER', action = wezterm.action.ShowLauncher },
   {
-    key = 'y',
-    mods = 'SUPER',
-    action = wezterm.action.SpawnCommandInNewTab {
-      args = { '/Users/jacob/bin/ink_fzf' },
+    key = 'i',
+    mods = 'LEADER',
+    action = wezterm.action.SpawnCommandInNewFloatingPane {
+      args = { "zsh", "-c", '/Users/jacob/bin/i' },
+      set_environment_variables = {
+        PATH = "/Users/jacob/bin:/opt/homebrew/bin:/bin",
+      }
     },
   },
   {
