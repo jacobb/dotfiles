@@ -24,4 +24,4 @@ ink search "${*:-}"  |
       --delimiter "\t" \
       --preview 'bat --color=always {2}'\
       --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
-      --bind 'enter:become(vim {2})'
+      --bind 'enter:become(nvim {2})'
