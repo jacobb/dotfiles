@@ -17,6 +17,7 @@ alias cat='bat'
 alias j='just'
 alias g='git'
 alias y='yazi'
+alias is='ink_search'
 
 # one day i'll pick
 alias vi='nvim'
