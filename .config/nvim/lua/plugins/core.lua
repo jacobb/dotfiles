@@ -21,7 +21,7 @@ return {
         show_hidden = true,
       },
     },
-    event = "VeryLazy",
+    lazy = false,
     dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
       { "-", "<CMD>Oil<CR>", desc = "Open parent directory" },
