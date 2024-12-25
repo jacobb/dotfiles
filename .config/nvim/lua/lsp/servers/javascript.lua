@@ -1,9 +1,13 @@
 local M = {}
+local util = require 'lspconfig.util'
 
 M.setup = function ()
   local lspconfig = require('lspconfig')
-  lspconfig.biome.setup {
+  lspconfig.biome.setup({
     filestypes = {
+      "css",
+      "html",
+      "jinja.html",
       "javascript",
       "javascriptreact",
       "json",
@@ -11,8 +15,9 @@ M.setup = function ()
       "typescript",
       "typescript.tsx",
       "typescriptreact",
-    }
-  }
+    },
+    root_dir = util.root_pattern('package.json', '.git'),
+  })
 end
 
 return M

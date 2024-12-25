@@ -7,6 +7,8 @@ M.setup = function ()
       "html",
       "htmldjango",
       "jinja",
+      "jinja2",
+      "jinja.html",
     }
   }
 end
