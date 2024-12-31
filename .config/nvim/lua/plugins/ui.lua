@@ -5,8 +5,12 @@ return {
     lazy = false,
     opts = {
       dashboard = { enabled = true },
+      lazygit = { enabled = true },
       scroll = { enabled = true },
     },
+    keys = {
+      { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
+    }
   },
   {
     'nvim-lualine/lualine.nvim',
